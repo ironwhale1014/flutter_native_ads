@@ -13,6 +13,7 @@ public class MainActivity extends FlutterActivity {
         super.configureFlutterEngine(flutterEngine);
 
         GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "listTile", new ListTileNativeAdFactory(getContext()));
+        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "mediumTile", new MediumTileNativeAdFactory(getContext()));
 
 
     }
@@ -21,5 +22,6 @@ public class MainActivity extends FlutterActivity {
     public void cleanUpFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.cleanUpFlutterEngine(flutterEngine);
         GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "listTile");
+        GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "mediumTile");
     }
 }

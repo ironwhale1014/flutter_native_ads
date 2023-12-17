@@ -3,6 +3,7 @@ package com.example.native_train;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.nativead.NativeAd;
@@ -31,14 +32,26 @@ class ListTileNativeAdFactory implements GoogleMobileAdsPlugin.NativeAdFactory {
         TextView adMark = nativeAdView.findViewById(R.id.ad_mark);
 
 
+        ImageView iconView = nativeAdView.findViewById(R.id.ad_icon);
+
+
         NativeAd.Image icon = nativeAd.getIcon();
-        if(icon != null){
-         adMark.setVisibility(View.VISIBLE);
-        }else {
+        if (icon != null) {
+            adMark.setVisibility(View.VISIBLE);
+            iconView.setImageDrawable(icon.getDrawable());
+
+        } else {
             adMark.setVisibility(View.INVISIBLE);
         }
 
+        TextView headlineView=nativeAdView.findViewById(R.id.headline);
+        headlineView.setText(nativeAd.getHeadline());
 
+        TextView bodyView = nativeAdView.findViewById(R.id.list_body);
+        bodyView.setText(nativeAd.getBody());
+
+//      이게 멀까???
+        nativeAdView.setIconView(iconView);
         nativeAdView.setNativeAd(nativeAd);
         return nativeAdView;
     }

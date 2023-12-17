@@ -10,16 +10,26 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Native ads train"),
       ),
-      body: SafeArea(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("ggg"),
-          Container(color: Colors.red, height: 60),
-          NativeAds(),
-          Text("ggg"),
-        ],
-      )),
+      body: const SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+            Text("ggg"),
+            // NativeAds(
+            //   factoryId: "listTile",
+            //   height: 60,
+            //   mode: NativeAdsMode.banner,
+            // ),
+            NativeAds(
+              factoryId: "mediumTile",
+              height: 400,
+              mode: NativeAdsMode.medium,
+            ),
+            Text("ggg"),
+                    ],
+                  ),
+          )),
     );
   }
 }
