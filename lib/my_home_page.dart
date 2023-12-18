@@ -7,29 +7,31 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text("Native ads train"),
       ),
       body: const SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-            Text("ggg"),
-            // NativeAds(
-            //   factoryId: "listTile",
-            //   height: 60,
-            //   mode: NativeAdsMode.banner,
-            // ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            NativeAds(
+              factoryId: "listTile",
+              height: 60,
+              mode: NativeAdsMode.banner,
+            ),
+            SizedBox(height: 30),
             NativeAds(
               factoryId: "mediumTile",
               height: 400,
               mode: NativeAdsMode.medium,
             ),
             Text("ggg"),
-                    ],
-                  ),
-          )),
+          ],
+        ),
+      )),
     );
   }
 }

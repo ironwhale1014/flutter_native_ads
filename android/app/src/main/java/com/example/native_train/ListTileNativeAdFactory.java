@@ -1,6 +1,6 @@
 package com.example.native_train;
 
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,50 +9,46 @@ import android.widget.TextView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdView;
 
-
 import java.util.Map;
 
-import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin;
+import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin.NativeAdFactory;
 
-class ListTileNativeAdFactory implements GoogleMobileAdsPlugin.NativeAdFactory {
 
-    private final Context context;
+class ListTileNativeAdFactory implements NativeAdFactory {
 
-    ListTileNativeAdFactory(Context context) {
-        this.context = context;
+    private final LayoutInflater layoutInflater;
+
+    ListTileNativeAdFactory(LayoutInflater layoutInflater) {
+        this.layoutInflater = layoutInflater;
     }
-
 
     @Override
     public NativeAdView createNativeAd(NativeAd nativeAd, Map<String, Object> customOptions) {
 
-        NativeAdView nativeAdView = (NativeAdView) LayoutInflater.from(context).inflate(R.layout.list_tile_native_ad, null);
+        final NativeAdView adView = (NativeAdView) layoutInflater.inflate(R.layout.list_tile_native_ad, null);
 
+        adView.setHeadlineView(adView.findViewById(R.id.headline));
+        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
 
-        TextView adMark = nativeAdView.findViewById(R.id.ad_mark);
-
-
-        ImageView iconView = nativeAdView.findViewById(R.id.ad_icon);
-
-
-        NativeAd.Image icon = nativeAd.getIcon();
-        if (icon != null) {
-            adMark.setVisibility(View.VISIBLE);
-            iconView.setImageDrawable(icon.getDrawable());
-
+        adView.setIconView(adView.findViewById(R.id.ad_icon));
+        if (nativeAd.getIcon() == null) {
+            adView.getIconView().setVisibility(View.GONE);
         } else {
-            adMark.setVisibility(View.INVISIBLE);
+            ((ImageView) adView.getIconView()).setImageDrawable(nativeAd.getIcon().getDrawable());
+            adView.getIconView().setVisibility(View.VISIBLE);
         }
 
-        TextView headlineView=nativeAdView.findViewById(R.id.headline);
-        headlineView.setText(nativeAd.getHeadline());
+        adView.setBodyView(adView.findViewById(R.id.list_body));
+        if (nativeAd.getBody() == null) {
+            adView.getBodyView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        }
 
-        TextView bodyView = nativeAdView.findViewById(R.id.list_body);
-        bodyView.setText(nativeAd.getBody());
 
-//      이게 멀까???
-        nativeAdView.setIconView(iconView);
-        nativeAdView.setNativeAd(nativeAd);
-        return nativeAdView;
+        adView.setNativeAd(nativeAd);
+
+        return adView;
     }
 }

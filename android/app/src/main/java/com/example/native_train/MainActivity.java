@@ -12,8 +12,10 @@ public class MainActivity extends FlutterActivity {
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
 
-        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "listTile", new ListTileNativeAdFactory(getContext()));
-        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "mediumTile", new MediumTileNativeAdFactory(getContext()));
+
+
+        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "listTile", new ListTileNativeAdFactory(getLayoutInflater()));
+        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "mediumTile", new MediumTileNativeAdFactory(getLayoutInflater(),getContext()));
 
 
     }

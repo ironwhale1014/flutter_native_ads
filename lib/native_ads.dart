@@ -66,7 +66,7 @@ class _NativeAdsState extends State<NativeAds> {
           ? SizedBox(height: widget.height, child: AdWidget(ad: _ad))
           : Container(
               constraints: const BoxConstraints(
-                maxHeight: 200,
+                maxHeight: 250,
                 maxWidth: double.infinity,
               ),
               child: AdWidget(
